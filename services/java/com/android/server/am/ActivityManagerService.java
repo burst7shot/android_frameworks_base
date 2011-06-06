@@ -906,6 +906,8 @@ public final class ActivityManagerService extends ActivityManagerNative
 
     long mLastWriteTime = 0;
 
+    boolean mSuppressHomeLock = false;
+
     /**
      * Set to true after the system has finished booting.
      */
@@ -11611,6 +11613,8 @@ public final class ActivityManagerService extends ActivityManagerNative
             adj = FOREGROUND_APP_ADJ;
             schedGroup = Process.THREAD_GROUP_DEFAULT;
             app.adjType = "top-activity";
+            mSuppressHomeLock = "com.android.camera".equals(app.processName) ||
+                    "com.google.android.apps.maps".equals(app.processName);
         } else if (app.instrumentationClass != null) {
             // Don't want to kill running instrumentation.
             adj = FOREGROUND_APP_ADJ;
@@ -11648,8 +11652,8 @@ public final class ActivityManagerService extends ActivityManagerNative
         } else if (app == mHomeProcess) {
             // This process is hosting what we currently consider to be the
             // home app, so we don't want to let it go into the background.
-            adj =  Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.LOCK_HOME_IN_MEMORY, 0) == 1 ? VISIBLE_APP_ADJ : HOME_APP_ADJ;
+            adj = !mSuppressHomeLock && Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.LOCK_HOME_IN_MEMORY, 1) == 1 ? VISIBLE_APP_ADJ : HOME_APP_ADJ;
             schedGroup = Process.THREAD_GROUP_BG_NONINTERACTIVE;
             app.adjType = "home";
         } else if ((N=app.activities.size()) != 0) {
