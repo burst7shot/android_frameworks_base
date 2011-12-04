@@ -1849,4 +1849,11 @@
   <java-symbol type="string" name="global_actions_expanded_desktop_mode_on_status" />
   <java-symbol type="drawable" name="ic_lock_expanded_desktop" />
 
+  <!-- Config.xml entries -->
+  <java-symbol type="bool" name="config_forceDisableHardwareKeyboard" />
+  <java-symbol type="bool" name="config_hasRotationLockSwitch" />
+  <java-symbol type="integer" name="config_backKillTimeout" />
+  <java-symbol type="bool" name="config_show_cmIMESwitcher"/>
+  <java-symbol type="string" name="config_legacyUmsLunFile" />
+
 </resources>
