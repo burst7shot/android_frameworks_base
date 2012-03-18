@@ -2246,4 +2246,13 @@
     <string name="lockscreen_too_many_failed_fingers_dialog_message">您的指紋無法識別您的身分達 %1$d 次。\n\n請在 %2$d 秒內再試一次。</string>
     <string name="lockscreen_failed_fingers_almost_glogin">您的指紋無法識別您的身分達 %1$d 次。如果識別再失敗 %2$d 次，系統將要求您使用 Google 登入資訊來解除鎖定您的電話。\n\n請在 %3$d 秒內再試一次。</string>
     <string name="lockscreen_forgot_finger_button_text">忘記手指?</string>
+
+
+    <!-- Button to hot reboot the device, within the Reboot Options dialog -->
+    <string name="reboot_hot">熱重啟</string>
+
+    <!-- Hot Reboot Progress Dialog title. Shown if the user chooses to hot reboot the phone. -->
+    <string name="hot_reboot_title" product="default">熱重啟</string>
+
+    <string name="hot_reboot_progress">重新啟動框架\u2026</string>
 </resources>

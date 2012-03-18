@@ -2487,4 +2487,12 @@
     <string name="lockscreen_too_many_failed_fingers_dialog_message">Your fingerprint failed to identify you %1$d times.\n\nPlease try again in %2$d seconds.</string>
     <string name="lockscreen_failed_fingers_almost_glogin">Your fingerprint failed to identify you %1$d times. After %2$d more unsuccessful identifications, you will be asked to unlock your phone using your Google sign-in.\n\n Please try again in %3$d seconds.</string>
     <string name="lockscreen_forgot_finger_button_text">Forgot finger?</string>
+
+    <!-- Button to hot reboot the device, within the Reboot Options dialog -->
+    <string name="reboot_hot">Hot Reboot</string>
+
+    <!-- Hot Reboot Progress Dialog title. Shown if the user chooses to hot reboot the phone. -->
+    <string name="hot_reboot_title" product="default">Hot reboot phone</string>
+
+    <string name="hot_reboot_progress">Restarting android framework\u2026</string>
 </resources>
