@@ -1121,13 +1121,6 @@ public final class Settings {
             Uri.parse("content://" + AUTHORITY + "/system");
 
         /**
-         * Transparent notification bar
-         *
-         * @hide
-         */
-        public static final String TRANSPARENT_STATUS_BAR = "transparent_status_bar";
-
-        /**
          * Quick copy / Quick paste feature
          *
          * @hide
