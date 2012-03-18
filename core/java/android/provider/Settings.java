@@ -1121,6 +1121,13 @@ public final class Settings {
             Uri.parse("content://" + AUTHORITY + "/system");
 
         /**
+         * Transparent notification bar
+         *
+         * @hide
+         */
+        public static final String TRANSPARENT_STATUS_BAR = "transparent_status_bar";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
