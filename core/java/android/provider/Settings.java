@@ -1128,6 +1128,13 @@ public final class Settings {
         public static final String TRANSPARENT_STATUS_BAR = "transparent_status_bar";
 
         /**
+         * Quick copy / Quick paste feature
+         *
+         * @hide
+         */
+        public static final String QUICK_COPY_PASTE = "quick_copy_paste";
+
+        /**
          * Whether we keep the device on while the device is plugged in.
          * Supported values are:
          * <ul>
