@@ -1130,8 +1130,9 @@ public final class Settings {
 
         /**
          * Transparent notification bar
-         * 0 (default)     : normal status bar background image
-         * 1 (custom)      : user defined custom color
+         * 0 (theme)       : theme settings
+         * 1 (default)     : normal status bar background image
+         * 2 (custom)      : user defined custom color
          * 3 (transparent) : fully transparent background image
          * @hide
          */
@@ -1147,9 +1148,11 @@ public final class Settings {
 
         /**
          * Transparent notification dropdown background
-         * 0 (default)     : normal notification dropdown background image
-         * 1 (custom)      : user defined custom color
+         * 0 (theme)       : theme settings
+         * 1 (default)     : normal notification dropdown background image
+         * 2 (custom)      : user defined custom color
          * 3 (transparent) : fully transparent background image
+         * 4 (special) : peeping android background image
          * @hide
          */
         public static final String TRANSPARENT_NOTIFICATION_BACKGROUND = "transparent_notification_background";
