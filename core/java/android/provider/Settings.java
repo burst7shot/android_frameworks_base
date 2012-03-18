@@ -1121,6 +1121,23 @@ public final class Settings {
             Uri.parse("content://" + AUTHORITY + "/system");
 
         /**
+         * The color to render the status bar background
+         * hex value including alpha
+         * default: ff000000
+         * @hide
+         */
+        public static final String STATUS_BAR_COLOR = "status_bar_color";
+
+        /**
+         * Transparent notification bar
+         * 0 (default)     : normal status bar background image
+         * 1 (custom)      : user defined custom color
+         * 3 (transparent) : fully transparent background image
+         * @hide
+         */
+        public static final String TRANSPARENT_STATUS_BAR = "transparent_status_bar";
+
+        /**
          * Quick copy / Quick paste feature
          *
          * @hide

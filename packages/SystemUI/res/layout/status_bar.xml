@@ -19,17 +19,18 @@
 */
 -->
 
-<!--    android:background="@drawable/status_bar_closed_default_background" -->
+<!--    android:background="@android:color/transparent" -->
 <com.android.systemui.statusbar.CmStatusBarView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/statusbar_background"
+    android:id="@+id/statusbarBackground"
+    android:background="@android:color/transparent"
     android:focusable="true"
     android:descendantFocusability="afterDescendants"
     >
 
-    <LinearLayout
+    <LinearLayout android:id="@+id/centerClock"
        android:gravity="center"
        android:layout_gravity="center"
        android:layout_centerInParent="true"
@@ -181,7 +182,7 @@
     </LinearLayout>
 
     <LinearLayout android:id="@+id/ticker"
-        android:background="@drawable/statusbar_background"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="6dip"
@@ -230,6 +231,6 @@
         android:gravity="center_vertical|left"
         android:paddingLeft="6px"
         android:paddingRight="6px"
-        android:background="@drawable/statusbar_background"
+        android:background="@android:color/transparent"
         />
 </com.android.systemui.statusbar.CmStatusBarView>
