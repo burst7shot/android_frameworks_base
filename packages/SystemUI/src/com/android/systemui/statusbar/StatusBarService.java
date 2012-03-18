@@ -160,6 +160,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
 
     // the tracker view
     TrackingView mTrackingView;
+    View mNotificationBackgroundView;
     WindowManager.LayoutParams mTrackingParams;
     int mTrackingPosition; // the position of the top of the tracking view.
     private boolean mPanelSlightlyVisible;
@@ -473,6 +474,26 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
         mTrackingView.mService = this;
         mCloseView = (CloseDragHandle)mTrackingView.findViewById(R.id.close);
         mCloseView.mService = this;
+
+        mNotificationBackgroundView = (View)mTrackingView.findViewById(R.id.notificationBackground);
+
+        // apply transparent notification background drawables
+        int transNotificationBackground = Settings.System.getInt(getContentResolver(), Settings.System.TRANSPARENT_NOTIFICATION_BACKGROUND, 0);
+        int notificationBackgroundColor = Settings.System.getInt(getContentResolver(), Settings.System.NOTIFICATION_BACKGROUND_COLOR, 0);
+            switch (transNotificationBackground) {
+              case 0 : // defauult based on theme
+                  mNotificationBackgroundView.setBackgroundColor(0x00000000);
+                  mNotificationBackgroundView.setBackgroundDrawable(getResources().getDrawable(R.drawable.shade_bg));
+                  break;
+              case 1 : // user defined argb hex color
+                  mNotificationBackgroundView.setBackgroundDrawable(getResources().getDrawable(R.drawable.shade_trans_bg));
+                  mNotificationBackgroundView.setBackgroundColor(notificationBackgroundColor);
+                  break;
+              case 2 : // semi transparent
+                  mNotificationBackgroundView.setBackgroundColor(0x00000000);
+                  mNotificationBackgroundView.setBackgroundDrawable(getResources().getDrawable(R.drawable.shade_trans_bg));
+                  break;
+        }
 
         mContext=context;
         updateLayout();

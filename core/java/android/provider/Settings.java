@@ -1138,6 +1138,23 @@ public final class Settings {
         public static final String TRANSPARENT_STATUS_BAR = "transparent_status_bar";
 
         /**
+         * The color to render the notification dropdown background
+         * hex value including alpha
+         * default: ff000000
+         * @hide
+         */
+        public static final String NOTIFICATION_BACKGROUND_COLOR = "notification_background_color";
+
+        /**
+         * Transparent notification dropdown background
+         * 0 (default)     : normal notification dropdown background image
+         * 1 (custom)      : user defined custom color
+         * 3 (transparent) : fully transparent background image
+         * @hide
+         */
+        public static final String TRANSPARENT_NOTIFICATION_BACKGROUND = "transparent_notification_background";
+
+        /**
          * Quick copy / Quick paste feature
          *
          * @hide
