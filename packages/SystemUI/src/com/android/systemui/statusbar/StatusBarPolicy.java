@@ -639,7 +639,6 @@ public class StatusBarPolicy {
 
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NOTIFICATION_BACKGROUND_COLOR), false, this);
-         }
         }
 
         @Override public void onChange(boolean selfChange) {
