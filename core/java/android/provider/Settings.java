@@ -1159,13 +1159,6 @@ public final class Settings {
         public static final String TRANSPARENT_NOTIFICATION_BACKGROUND = "transparent_notification_background";
 
         /**
-         * Quick copy / Quick paste feature
-         *
-         * @hide
-         */
-        public static final String QUICK_COPY_PASTE = "quick_copy_paste";
-
-        /**
          * Ringer loop
          *
          * @hide
