@@ -490,6 +490,12 @@ public class TabletStatusBar extends StatusBar implements
     }
 
     @Override
+    protected void setHardwareAcceleration(WindowManager.LayoutParams lp) {
+        lp.format = PixelFormat.OPAQUE;
+        lp.flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
+    }
+
+    @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         // detect theme change.
         CustomTheme newTheme = mContext.getResources().getConfiguration().customTheme;
