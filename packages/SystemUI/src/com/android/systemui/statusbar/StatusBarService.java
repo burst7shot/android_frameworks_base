@@ -408,7 +408,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
                   sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.status_bar_transparent_background));
                   sb.setBackgroundColor(statusBarColor);
                   break;
-              case 3 : // semi transparent
+              case 3 : // transparent
                   sb.setBackgroundColor(0x00000000);
                   sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.status_bar_transparent_background));
                   break;
@@ -603,7 +603,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
 
         final View view = mStatusBarContainer;
 
-        int mPixelFormat = PixelFormat.TRANSLUCENT;
+        int mPixelFormat = PixelFormat.RGBX_8888;
         if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 0) != 0) {
           // transparent statusbar enabled?
           mPixelFormat = PixelFormat.TRANSLUCENT;
