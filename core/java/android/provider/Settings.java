@@ -2430,6 +2430,16 @@ public final class Settings {
         public static final String STATUS_BAR_CLOCKCOLOR = "status_bar_clockcolor";
 
         /**
+         * Whether to show the alarm icon in status bar
+         * of the stock clock
+         * 0: don't show the alarm icon
+         * 1: show the alarm icon
+         * default: 1
+         * @hide
+         */
+        public static final String STATUS_BAR_ALARM = "status_bar_alarm";
+
+        /**
          * Whether to show the signal text or signal bars.
          * default: 0
          * 0: show signal bars
