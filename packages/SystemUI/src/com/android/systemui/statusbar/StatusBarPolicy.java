@@ -1672,15 +1672,6 @@ public class StatusBarPolicy {
         mNotificationBackgroundColor = (Settings.System.getInt(resolver,
                 Settings.System.NOTIFICATION_BACKGROUND_COLOR, 1));
 
-        int statusBarBattery = Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_BATTERY, 0);
-        mStatusBarBattery = Integer.valueOf(statusBarBattery);
-
-        if (mStatusBarBattery == BATTERY_STYLE_NORMAL) {
-                mService.setIconVisibility("battery", true);
-        } else if (mStatusBarBattery == BATTERY_STYLE_PERCENT || mStatusBarBattery == BATTERY_STYLE_GONE) {
-                mService.setIconVisibility("battery", false);
-        }
         mStatusBarBattery = (Settings.System.getInt(resolver,
                 Settings.System.STATUS_BAR_BATTERY, 0) == 0);
         mService.setIconVisibility("battery", mStatusBarBattery);
