@@ -399,9 +399,9 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
         int statusBarColor = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_COLOR, 0);
             switch (transStatusBar) {
               case 0 : // default based on theme, leave alone
+                  sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background));
                   break;
               case 1 : // based on ROM
-                  sb.setBackgroundColor(0x00000000);
                   sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background));
                   break;
               case 2 : // user defined argb hex color
