@@ -399,16 +399,24 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
         int statusBarColor = Settings.System.getInt(getContentResolver(), Settings.System.STATUS_BAR_COLOR, 0);
             switch (transStatusBar) {
               case 0 : // default based on theme, leave alone
-                  sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background));
-                  break;
+                  sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background));                  break;
               case 1 : // based on ROM
+                  sb.setBackgroundColor(0x00000000);
                   sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background));
                   break;
               case 2 : // user defined argb hex color
                   sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.status_bar_transparent_background));
                   sb.setBackgroundColor(statusBarColor);
                   break;
-              case 3 : // transparent
+              case 3 : // semi transparent
+                  sb.setBackgroundColor(0x00000000);
+                  sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background_semi));
+                  break;
+              case 4 : // gradient
+                  sb.setBackgroundColor(0x00000000);
+                  sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.statusbar_background_gradient));
+                  break;
+              case 5 : // transparent
                   sb.setBackgroundColor(0x00000000);
                   sb.setBackgroundDrawable(getResources().getDrawable(R.drawable.status_bar_transparent_background));
                   break;
@@ -498,7 +506,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
                   mNotificationBackgroundView.setBackgroundDrawable(getResources().getDrawable(R.drawable.shade_trans_bg));
                   mNotificationBackgroundView.setBackgroundColor(notificationBackgroundColor);
                   break;
-              case 3 : // semi transparent background image
+              case 3 : //transparent background image
                   mNotificationBackgroundView.setBackgroundColor(0x00000000);
                   mNotificationBackgroundView.setBackgroundDrawable(getResources().getDrawable(R.drawable.shade_trans_bg));
                   break;
