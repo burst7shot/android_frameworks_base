@@ -3049,6 +3049,12 @@ public final class Settings {
         public static final String BOOTANIMATION_PATH = "bootanimation_path";
 
         /**
+         * Sets the option to enable bootsound
+         * @hide
+         */
+        public static final String ENABLE_BOOTSOUND_PREF = "pref_enable_bootsound";
+
+        /**
          * Whether or not volume button music controls should be enabled to seek media tracks
          * @hide
          */
