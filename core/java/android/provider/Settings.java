@@ -2641,6 +2641,22 @@ public final class Settings {
         public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
 
         /**
+         * lockscreen clock font 0: regular 1: honeycomb
+         */
+        public static final String CLOCK_FONT = "lockscreen_clock_font";
+
+        /**
+         * honeycomb screen custom app intent
+         */
+        public static final String LOCKSCREEN_CUSTOM_APP_HONEY_1 = "lockscreen_honey_quadrant_1_intent";
+
+        public static final String LOCKSCREEN_CUSTOM_APP_HONEY_2 = "lockscreen_honey_quadrant_2_intent";
+
+        public static final String LOCKSCREEN_CUSTOM_APP_HONEY_3 = "lockscreen_honey_quadrant_3_intent";
+
+        public static final String LOCKSCREEN_CUSTOM_APP_HONEY_4 = "lockscreen_honey_quadrant_4_intent";
+
+        /**
          * Whether the lockscreen should be disabled if security is on
          * @hide
          */

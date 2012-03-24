@@ -688,58 +688,38 @@ public class LockPatternKeyguardView extends KeyguardViewBase {
     }
 
     View createLockScreen() {
-        return new LockScreen(
-                mContext,
-                mConfiguration,
-                mLockPatternUtils,
-                mUpdateMonitor,
-                mKeyguardScreenCallback);
+        int ls = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_STYLE_PREF, 3);
+
+        if (ls == 6)
+            return new HoneycombLockscreen(mContext, mConfiguration, mLockPatternUtils,
+                    mUpdateMonitor, mKeyguardScreenCallback);
+        else
+            return new LockScreen(mContext, mConfiguration, mLockPatternUtils, mUpdateMonitor,
+                    mKeyguardScreenCallback);
     }
 
     View createUnlockScreenFor(UnlockMode unlockMode) {
         View unlockView = null;
         if (unlockMode == UnlockMode.Pattern) {
-            PatternUnlockScreen view = new PatternUnlockScreen(
-                    mContext,
-                    mConfiguration,
-                    mLockPatternUtils,
-                    mUpdateMonitor,
-                    mKeyguardScreenCallback,
+            PatternUnlockScreen view = new PatternUnlockScreen(mContext, mConfiguration,
+                    mLockPatternUtils, mUpdateMonitor, mKeyguardScreenCallback,
                     mUpdateMonitor.getFailedAttempts());
-            if (DEBUG) Log.d(TAG,
-                "createUnlockScreenFor(" + unlockMode + "): mEnableFallback=" + mEnableFallback);
-            view.setEnableFallback(mEnableFallback);
-            unlockView = view;
-        } else if (unlockMode == UnlockMode.Finger) {
-            FingerUnlockScreen view = new FingerUnlockScreen(
-                    mContext,
-                    mConfiguration,
-                    mLockPatternUtils,
-                    mUpdateMonitor,
-                    mKeyguardScreenCallback,
-                    mUpdateMonitor.getFailedAttempts());
-            if (DEBUG) Log.d(TAG,
-                "createUnlockScreenFor(" + unlockMode + "): mEnableFallback=" + mEnableFallback);
+            if (DEBUG)
+                Log.d(TAG, "createUnlockScreenFor(" + unlockMode + "): mEnableFallback="
+                        + mEnableFallback);
             view.setEnableFallback(mEnableFallback);
             unlockView = view;
         } else if (unlockMode == UnlockMode.SimPin) {
-            unlockView = new SimUnlockScreen(
-                    mContext,
-                    mConfiguration,
-                    mUpdateMonitor,
-                    mKeyguardScreenCallback,
-                    mLockPatternUtils);
+            unlockView = new SimUnlockScreen(mContext, mConfiguration, mUpdateMonitor,
+                    mKeyguardScreenCallback, mLockPatternUtils);
         } else if (unlockMode == UnlockMode.Account) {
             try {
-                unlockView = new AccountUnlockScreen(
-                        mContext,
-                        mConfiguration,
-                        mUpdateMonitor,
-                        mKeyguardScreenCallback,
-                        mLockPatternUtils);
+                unlockView = new AccountUnlockScreen(mContext, mConfiguration, mUpdateMonitor,
+                        mKeyguardScreenCallback, mLockPatternUtils);
             } catch (IllegalStateException e) {
                 Log.i(TAG, "Couldn't instantiate AccountUnlockScreen"
-                      + " (IAccountsService isn't available)");
+                        + " (IAccountsService isn't available)");
                 // TODO: Need a more general way to provide a
                 // platform-specific fallback UI here.
                 // For now, if we can't display the account login

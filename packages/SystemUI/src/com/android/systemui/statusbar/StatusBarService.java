@@ -423,7 +423,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
         }
 
         // figure out which pixel-format to use for the status bar.
-//        mPixelFormat = PixelFormat.TRANSLUCENT;
+          mPixelFormat = PixelFormat.TRANSLUCENT;
 //        Drawable bg = sb.getBackground();
 //        if (bg != null) {
 //            mPixelFormat = bg.getOpacity();
@@ -611,7 +611,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
 
         final View view = mStatusBarContainer;
 
-        int mPixelFormat = PixelFormat.RGBX_8888;
+        int mPixelFormat = PixelFormat.TRANSLUCENT;
         if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.TRANSPARENT_STATUS_BAR, 0) != 0) {
           // transparent statusbar enabled?
           mPixelFormat = PixelFormat.TRANSLUCENT;

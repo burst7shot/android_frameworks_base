@@ -23,6 +23,7 @@ copy_from :=                \
     DroidSerif-Italic.ttf   \
     DroidSerif-BoldItalic.ttf   \
     DroidSansMono.ttf        \
+    HoneycombAndroidClock.ttf  \
     Clockopia.ttf
 
 ifneq ($(NO_FALLBACK_FONT),true)

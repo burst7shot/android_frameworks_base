@@ -72,7 +72,8 @@ public final class CmSystem {
         Slider,
         Rotary,
         Lense,
-        Ring;
+        Ring,
+        Honeycomb;
 
         static public LockscreenStyle getStyleById(int id) {
             switch (id) {
@@ -87,6 +88,8 @@ public final class CmSystem {
                     return Lense;
                 case 5:
                     return Ring;
+                case 6:
+                    return Honeycomb;
                 default:
                     return Ring;
             }
@@ -106,6 +109,8 @@ public final class CmSystem {
                     return 4;
                 case Ring:
                     return 5;
+                case Honeycomb:
+                    return 6;
                 default:
                     return 5;
             }
@@ -115,7 +120,8 @@ public final class CmSystem {
     public enum InCallStyle {
         Slider,
         Rotary,
-        Ring;
+        Ring,
+        Honeycomb;
 
         static public InCallStyle getStyleById(int id) {
             switch (id) {
@@ -128,6 +134,8 @@ public final class CmSystem {
                     return Rotary;
                 case 4:
                     return Ring;
+                case 5:
+                    return Honeycomb;
                 default:
                     return Ring;
             }
@@ -145,6 +153,8 @@ public final class CmSystem {
                     return 2;
                 case Ring:
                     return 4;
+                case Honeycomb:
+                    return 5;
                 default:
                     return 4;
             }
@@ -199,7 +209,7 @@ public final class CmSystem {
                 case 4:
                     return Blade;
                 default:
-                    return Bubble;
+                    return Holo;
             }
         }
 
@@ -218,7 +228,7 @@ public final class CmSystem {
                 case Blade:
                     return 4;
                 default:
-                    return 1;
+                    return 3;
             }
         }
     }
