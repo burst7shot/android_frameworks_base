@@ -53,6 +53,7 @@ import android.server.BluetoothA2dpService;
 import android.server.BluetoothHidService;
 import android.server.BluetoothNetworkService;
 import android.server.BluetoothService;
+import android.server.PowerSaverService;
 import android.server.search.SearchManagerService;
 import android.util.EventLog;
 import android.util.Log;
@@ -74,6 +75,11 @@ class ServerThread extends Thread {
     private static final int LOG_BOOT_PROGRESS_SYSTEM_RUN = 3010;
 
     private ContentResolver mContentResolver;
+
+    void reportWtf(String msg, Throwable e) {
+        Slog.w(TAG, "***********************************************");
+        Log.wtf(TAG, "BOOT FAILURE " + msg, e);
+    }
 
     private class AdbSettingsObserver extends ContentObserver {
         public AdbSettingsObserver() {
@@ -272,6 +278,7 @@ class ServerThread extends Thread {
         NotificationManagerService notification = null;
         WallpaperManagerService wallpaper = null;
         LocationManagerService location = null;
+        PowerSaverService powerSaver = null;
 
         if (factoryTest != SystemServer.FACTORY_TEST_LOW_LEVEL) {
             try {
@@ -514,6 +521,13 @@ class ServerThread extends Thread {
                 Slog.e(TAG, "Failure starting AssetRedirectionManager Service", e);
             }
 
+            try {
+                Slog.i(TAG, "PowerSaverService");
+                powerSaver = new PowerSaverService(context);
+            } catch(Throwable e) {
+                reportWtf("starting PowerSaver service", e);
+            }
+
             String[] vendorServices = context.getResources().getStringArray(
                     com.android.internal.R.array.config_vendorServices);
 
@@ -633,6 +647,7 @@ class ServerThread extends Thread {
         final InputMethodManagerService immF = imm;
         final RecognitionManagerService recognitionF = recognition;
         final LocationManagerService locationF = location;
+        final PowerSaverService powerSaverF = powerSaver;
 
         // We now tell the activity manager it is okay to run third party
         // code.  It will call back into us once it has gotten to the state
@@ -661,6 +676,11 @@ class ServerThread extends Thread {
                 if (immF != null) immF.systemReady();
                 if (locationF != null) locationF.systemReady();
                 if (throttleF != null) throttleF.systemReady();
+                try {
+                    if(powerSaverF != null) powerSaverF.systemReady();
+                }catch (Throwable e) {
+                    reportWtf("making PowerSaverService ready", e);
+                }
             }
         });
 

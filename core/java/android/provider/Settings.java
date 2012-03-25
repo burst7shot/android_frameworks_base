@@ -3023,6 +3023,18 @@ public final class Settings {
         public static final String EXPANDED_FLASH_MODE = "expanded_flash_mode";
 
         /**
+        * Power Menu - Screenshot toggle
+        * @hide
+        */
+        public static final String POWER_DIALOG_SHOW_SCREENSHOT = "power_dialog_show_screenshot";
+       
+        /**
+        * Power Menu - PowerSaver toggle
+        * @hide
+        */
+        public static final String POWER_DIALOG_SHOW_POWER_SAVER = "power_dialog_show_power_saver";
+
+        /**
         * Notification Power Widget - Mobile Data Auto 2G/3G Toggle
         * @hide
         */
@@ -5019,6 +5031,30 @@ public final class Settings {
             MOUNT_UMS_NOTIFY_ENABLED,
             UI_NIGHT_MODE
         };
+
+        /**
+         * PowerSaver function - port from AKOP projects
+         * @hide
+         */
+        public static final String POWER_SAVER_MODE = "power_saver_mode";
+
+        public static final String POWER_SAVER_DATA_MODE = "power_saver_data_mode";
+
+        public static final String POWER_SAVER_ORIGINAL_NETWORK_ON = "power_saver_original_network_on";
+
+        public static final String POWER_SAVER_ORIGINAL_NETWORK_MODE = "power_saver_original_network_mode";
+
+        public static final String POWER_SAVER_SYNC_MODE = "power_saver_sync_mode";
+
+        public static final String POWER_SAVER_SYNC_INTERVAL = "power_saver_sync_interval";
+
+        public static final String POWER_SAVER_DATA_DELAY = "power_saver_data_delay";
+
+        public static final String POWER_SAVER_WIFI_MODE = "power_saver_wifi_mode";
+
+        public static final String POWER_SAVER_SYNC_DATA_MODE = "power_saver_sync_data_mode";
+
+        public static final String POWER_SAVER_SYNC_MOBILE_PREFERENCE = "power_saver_sync_mobile_preference";
 
         /**
          * Helper method for determining if a location provider is enabled.

@@ -2498,4 +2498,15 @@
     <string name="hot_reboot_title" product="default">Hot reboot phone</string>
 
     <string name="hot_reboot_progress">Restarting android framework\u2026</string>
+
+
+    <!-- label for item that toggles power saver mode -->
+    <string name="global_actions_toggle_power_saver">Power saver mode</string>
+
+    <!-- status message in phone options dialog for when power saver is on -->
+    <string name="global_actions_power_saver_on_status">Power saver is ON</string>
+
+    <!-- status message in phone options dialog for when power saver is off -->
+    <string name="global_actions_power_saver_off_status">Power saver is OFF</string>
+
 </resources>

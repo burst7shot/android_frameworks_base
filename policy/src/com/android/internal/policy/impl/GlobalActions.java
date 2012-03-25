@@ -43,10 +43,13 @@ import android.os.ServiceManager;
 import android.os.SystemProperties;
 import android.provider.CmSystem;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
+import android.server.PowerSaverService;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.util.Slog;
 import android.view.IWindowManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -79,6 +82,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
     private ToggleAction mSilentModeToggle;
     private ToggleAction mAirplaneModeOn;
+    private ToggleAction mPowerSaverOn;
 
     private MyAdapter mAdapter;
 
@@ -86,6 +90,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mDeviceProvisioned = false;
     private ToggleAction.State mAirplaneState = ToggleAction.State.Off;
     private boolean mIsWaitingForEcmExit = false;
+    private boolean mEnablePowerSaverToggle = true;
+    private boolean mEnableScreenshotToggle = false;
 
     private Profile mChosenProfile;
 
@@ -240,6 +246,29 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             }
         };
 
+        mPowerSaverOn = new ToggleAction(
+                R.drawable.ic_lock_power_saver,
+                R.drawable.ic_lock_power_saver,
+                R.string.global_actions_toggle_power_saver,
+                R.string.global_actions_power_saver_on_status,
+                R.string.global_actions_power_saver_off_status) {
+
+            void onToggle(boolean on) {
+                Settings.Secure.putInt(mContext.getContentResolver(),
+                        Settings.Secure.POWER_SAVER_MODE,
+                         on ? PowerSaverService.POWER_SAVER_MODE_ON
+                                : PowerSaverService.POWER_SAVER_MODE_OFF);
+            }
+
+            public boolean showDuringKeyguard() {
+                return true;
+            }
+
+            public boolean showBeforeProvisioning() {
+                return false;
+            }
+        };
+
         mAirplaneModeOn = new ToggleAction(
                 R.drawable.ic_lock_airplane_mode,
                 R.drawable.ic_lock_airplane_mode_off,
@@ -329,74 +358,13 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             }
         };
 
-        mItems = Lists.newArrayList(
-                // silent mode
-                mSilentModeToggle,
-                // next: airplane mode
-                mAirplaneModeOn,
-                // next: choose profile
-                new ProfileChooseAction() {
-                    public void onPress() {
-                        createProfileDialog();
-                    }
+        mEnablePowerSaverToggle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_POWER_SAVER, 1) == 1;
+        
+        mEnableScreenshotToggle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1;       
 
-                    public boolean showDuringKeyguard() {
-                        return false;
-                    }
-
-                    public boolean showBeforeProvisioning() {
-                        return false;
-                    }
-                },
-                // next: screenshot
-                new SinglePressAction(com.android.internal.R.drawable.ic_lock_screenshot, R.string.global_action_screenshot) {
-                    public void onPress() {
-                        Intent intent = new Intent("android.intent.action.SCREENSHOT");
-                        mContext.sendBroadcast(intent);
-                    }
-
-                    public boolean showDuringKeyguard() {
-                        return true;
-                    }
-
-                    public boolean showBeforeProvisioning() {
-                        return true;
-                    }
-                },
-                // next: reboot
-                new SinglePressAction(com.android.internal.R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
-                    public void onPress() {
-                        ShutdownThread.reboot(mContext, null, (Settings.System.getInt(mContext.getContentResolver(),
-                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1));
-                    }
-
-                    public boolean showDuringKeyguard() {
-                        return true;
-                    }
-
-                    public boolean showBeforeProvisioning() {
-                        return true;
-                    }
-                },
-                // last: power off
-                new SinglePressAction(
-                        com.android.internal.R.drawable.ic_lock_power_off,
-                        R.string.global_action_power_off) {
-
-                    public void onPress() {
-                        // shutdown by making sure radio and power are handled accordingly.
-                        ShutdownThread.shutdown(mContext,(Settings.System.getInt(mContext.getContentResolver(),
-                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1));
-                    }
-
-                    public boolean showDuringKeyguard() {
-                        return true;
-                    }
-
-                    public boolean showBeforeProvisioning() {
-                        return true;
-                    }
-                });
+        mItems = new ArrayList<Action>();
 
         boolean warmBootCapable = SystemProperties.getBoolean("ro.warmboot.capability", false);
         Log.d(TAG, "Device WarmBoot Capability = " + warmBootCapable );
@@ -423,7 +391,101 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 }
             };
             mItems.add( suspendAction );
-        }
+        };
+
+        // first: power off
+        mItems.add(
+            new SinglePressAction(
+                    com.android.internal.R.drawable.ic_lock_power_off,
+                    R.string.global_action_power_off) {
+
+                public void onPress() {
+                    // shutdown by making sure radio and power are handled accordingly.
+                    ShutdownThread.shutdown(mContext, true);
+                }
+
+                public boolean showDuringKeyguard() {
+                    return true;
+                }
+
+                public boolean showBeforeProvisioning() {
+                    return true;
+                }
+            });
+        
+        // next: reboot
+        mItems.add(
+                new SinglePressAction(com.android.internal.R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
+                    public void onPress() {
+                        ShutdownThread.reboot(mContext, null, (Settings.System.getInt(mContext.getContentResolver(),
+                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1));
+                    }
+
+                    public boolean showDuringKeyguard() {
+                        return true;
+                    }
+
+                    public boolean showBeforeProvisioning() {
+                        return true;
+                    }
+                });
+
+        // next: airplane mode
+        mItems.add(mAirplaneModeOn);
+        
+        // next: power saver
+        try {
+            Settings.Secure.getInt(mContext.getContentResolver(),
+                    Settings.Secure.POWER_SAVER_MODE);
+            if(mEnablePowerSaverToggle) {
+                Slog.e(TAG, "Adding powersaver");
+                mItems.add(mPowerSaverOn); 
+            } else {
+                Slog.e(TAG, "not adding power saver");
+            }
+        } catch (SettingNotFoundException e) {
+            //Power Saver hasn't yet been initialized so we don't want to make it easy for the user without
+            //  them reading any warnings that could be presented by enabling the power saver through ROM Control
+        };
+      
+        // next: screenshot
+        if (mEnableScreenshotToggle) {
+            Slog.e(TAG, "Adding screenshot");
+            mItems.add(new SinglePressAction(com.android.internal.R.drawable.ic_lock_screenshot,
+                    R.string.global_action_screenshot) {
+                public void onPress() {
+                    Intent intent = new Intent("android.intent.action.SCREENSHOT");
+                    mContext.sendBroadcast(intent);
+                }
+
+                public boolean showDuringKeyguard() {
+                    return true;
+                }
+
+                public boolean showBeforeProvisioning() {
+                    return true;
+                }
+            });
+        } else {
+            Slog.e(TAG, "Not adding screenshot");
+        };
+                // silent mode
+                mItems.add(mSilentModeToggle);
+                // next: choose profile
+                mItems.add(
+                new ProfileChooseAction() {
+                    public void onPress() {
+                        createProfileDialog();
+                    }
+
+                    public boolean showDuringKeyguard() {
+                        return false;
+                    }
+
+                    public boolean showBeforeProvisioning() {
+                        return false;
+                    }
+                });
 
         mAdapter = new MyAdapter();
 
@@ -535,6 +597,11 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         } else {
             mDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG);
         }
+        
+        final boolean powerSaverOn = Settings.Secure.getInt(mContext.getContentResolver(),
+                Settings.Secure.POWER_SAVER_MODE, PowerSaverService.POWER_SAVER_MODE_OFF) == PowerSaverService.POWER_SAVER_MODE_ON;
+        mPowerSaverOn.updateState(powerSaverOn ? ToggleAction.State.On : ToggleAction.State.Off);
+
         mDialog.setTitle(R.string.global_actions);
     }
 
