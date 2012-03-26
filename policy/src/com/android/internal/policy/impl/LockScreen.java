@@ -24,7 +24,6 @@ import com.android.internal.widget.RotarySelector;
 import com.android.internal.widget.SlidingTab;
 import com.android.internal.widget.SlidingTab.OnTriggerListener;
 import com.android.internal.widget.RingSelector;
-import com.android.internal.widget.UnlockRing;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -90,7 +89,7 @@ import java.net.URISyntaxException;
  */
 class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateMonitor.InfoCallback,
         KeyguardUpdateMonitor.SimStateCallback, SlidingTab.OnTriggerListener, RotarySelector.OnDialTriggerListener,
-        RingSelector.OnRingTriggerListener, OnGesturePerformedListener, UnlockRing.OnTriggerListener {
+        RingSelector.OnRingTriggerListener, OnGesturePerformedListener {
 
     private static final boolean DBG = false;
     private static final String TAG = "LockScreen";
@@ -113,7 +112,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
     private SlidingTab mSelector2;
     private RotarySelector mRotarySelector;
     private RingSelector mRingSelector;
-    private UnlockRing mUnlockRing;
     private DigitalClock mClock;
     private TextView mDate;
     private TextView mTime;
@@ -221,7 +219,7 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
     };
 
     private int mLockscreenStyle = (Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.LOCKSCREEN_STYLE_PREF, 5));
+            Settings.System.LOCKSCREEN_STYLE_PREF, 4));
 
     private int mCustomIconStyle = Settings.System.getInt(mContext.getContentResolver(),
             Settings.System.LOCKSCREEN_CUSTOM_ICON_STYLE, 1);
@@ -250,9 +248,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
 
     private boolean mUseRingLockscreen =
         LockscreenStyle.getStyleById(mLockscreenStyle) == LockscreenStyle.Ring;
-
-    private boolean mUseHoloLockscreen =
-        LockscreenStyle.getStyleById(mLockscreenStyle) == LockscreenStyle.Honeycomb;
 
     private boolean mRingUnlockMiddle = (Settings.System.getInt(mContext.getContentResolver(),
             Settings.System.LOCKSCREEN_RING_UNLOCK_MIDDLE, 0) == 1);
@@ -659,10 +654,7 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
 
         mRotarySelector.setOnDialTriggerListener(this);
         mTabSelector.setOnTriggerListener(this);
-
-        //honeycomb
-        mUnlockRing = (UnlockRing) findViewById(R.id.unlock_ring);
-        mUnlockRing.setOnTriggerListener(this);
+        mRingSelector.setOnRingTriggerListener(this);
 
         //Standard slider setup
         mTabSelector.setLeftTabResources(
@@ -921,10 +913,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
             mCallback.goToUnlockScreen();
         }
 
-        if(keyCode == KeyEvent.KEYCODE_MENU) {
-            mCallback.goToUnlockScreen();
-            return true;
-        }
         return false;
     }
 
@@ -1374,7 +1362,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
         if (show) {
             if (mUseRotaryLockscreen || mUseLenseSquareLockscreen) {
                 mRotarySelector.setVisibility(View.VISIBLE);
-                mUnlockRing.setVisibility(View.GONE);
                 mTabSelector.setVisibility(View.GONE);
                 mRingSelector.setVisibility(View.GONE);
                 if (mSelector2 != null) {
@@ -1383,23 +1370,14 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
             } else if (mUseRingLockscreen) {
                 mRingSelector.setVisibility(View.VISIBLE);
                 mRotarySelector.setVisibility(View.GONE);
-                mUnlockRing.setVisibility(View.GONE);
                 mTabSelector.setVisibility(View.GONE);
                 if (mSelector2 != null) {
                     mSelector2.setVisibility(View.GONE);
                 }
-            } else if(mUseHoloLockscreen) {
-                mRotarySelector.setVisibility(View.GONE);
-                mTabSelector.setVisibility(View.GONE);
-                if (mSelector2 != null) {
-                    mSelector2.setVisibility(View.GONE);
-                }
-                    mUnlockRing.setVisibility(View.VISIBLE);
             } else {
                 mRotarySelector.setVisibility(View.GONE);
                 mRingSelector.setVisibility(View.GONE);
                 mTabSelector.setVisibility(View.VISIBLE);
-                mUnlockRing.setVisibility(View.GONE);
                 if (mSelector2 != null) {
                     if (mCustomAppToggle) {
                         mSelector2.setVisibility(View.VISIBLE);
@@ -1412,7 +1390,6 @@ class LockScreen extends LinearLayout implements KeyguardScreen, KeyguardUpdateM
             mRotarySelector.setVisibility(View.GONE);
             mRingSelector.setVisibility(View.GONE);
             mTabSelector.setVisibility(View.GONE);
-            mUnlockRing.setVisibility(View.GONE);
             if (mSelector2 != null) {
                 mSelector2.setVisibility(View.GONE);
             }

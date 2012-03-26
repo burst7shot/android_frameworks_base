@@ -689,7 +689,7 @@ public class LockPatternKeyguardView extends KeyguardViewBase {
 
     View createLockScreen() {
         int ls = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.LOCKSCREEN_STYLE_PREF, 3);
+                Settings.System.LOCKSCREEN_STYLE_PREF, 4);
 
         if (ls == 6)
             return new HoneycombLockscreen(mContext, mConfiguration, mLockPatternUtils,
@@ -710,6 +710,12 @@ public class LockPatternKeyguardView extends KeyguardViewBase {
                         + mEnableFallback);
             view.setEnableFallback(mEnableFallback);
             unlockView = view;
+            } else if (unlockMode == UnlockMode.Finger) {
+            FingerUnlockScreen view = new FingerUnlockScreen(mContext, mConfiguration,
+                    mLockPatternUtils, mUpdateMonitor, mKeyguardScreenCallback,
+                    mUpdateMonitor.getFailedAttempts());
+            if (DEBUG) Log.d(TAG,
+                "createUnlockScreenFor(" + unlockMode + "): mEnableFallback=" + mEnableFallback);
         } else if (unlockMode == UnlockMode.SimPin) {
             unlockView = new SimUnlockScreen(mContext, mConfiguration, mUpdateMonitor,
                     mKeyguardScreenCallback, mLockPatternUtils);

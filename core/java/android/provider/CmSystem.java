@@ -153,8 +153,6 @@ public final class CmSystem {
                     return 2;
                 case Ring:
                     return 4;
-                case Honeycomb:
-                    return 5;
                 default:
                     return 4;
             }
@@ -209,7 +207,7 @@ public final class CmSystem {
                 case 4:
                     return Blade;
                 default:
-                    return Holo;
+                    return Bubble;
             }
         }
 
@@ -228,7 +226,7 @@ public final class CmSystem {
                 case Blade:
                     return 4;
                 default:
-                    return 3;
+                    return 1;
             }
         }
     }
