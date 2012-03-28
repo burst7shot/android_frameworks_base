@@ -3057,6 +3057,12 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_PROFILE = "power_dialog_show_profile";
 
         /**
+        * Power Menu - Silent toggle
+        * @hide
+        */
+        public static final String POWER_DIALOG_SHOW_SILENT = "power_dialog_show_silent";
+
+        /**
         * Notification Power Widget - Mobile Data Auto 2G/3G Toggle
         * @hide
         */

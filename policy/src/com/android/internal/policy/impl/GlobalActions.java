@@ -85,6 +85,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private ToggleAction mPowerSaverOn;
     private ToggleAction mAirplaneModeToggle;
     private ToggleAction mProfileToggle;
+    private ToggleAction mSilentToggle;
 
     private MyAdapter mAdapter;
 
@@ -96,6 +97,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mEnableScreenshotToggle = false;
     private boolean mEnableAirplaneModeToggle = false;
     private boolean mEnableProfileToggle = false;
+    private boolean mEnableSilentToggle = false;
 
     private Profile mChosenProfile;
 
@@ -374,6 +376,9 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mEnableProfileToggle = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_PROFILE, 0) == 1;  
 
+        mEnableSilentToggle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_SILENT, 0) == 1;
+
         mItems = new ArrayList<Action>();
 
         boolean warmBootCapable = SystemProperties.getBoolean("ro.warmboot.capability", false);
@@ -459,6 +464,11 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             //Power Saver hasn't yet been initialized so we don't want to make it easy for the user without
             //  them reading any warnings that could be presented by enabling the power saver through ROM Control
         };
+
+        // silent mode
+        if (mEnableSilentToggle){
+        mItems.add(mSilentModeToggle);
+        };
       
         // next: screenshot
         if (mEnableScreenshotToggle) {
@@ -481,8 +491,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         } else {
             Slog.e(TAG, "Not adding screenshot");
         };
-                // silent mode
-                mItems.add(mSilentModeToggle);
+
         // next: choose profile
         if(mEnableProfileToggle){
         mItems.add(
