@@ -84,6 +84,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private ToggleAction mAirplaneModeOn;
     private ToggleAction mPowerSaverOn;
     private ToggleAction mAirplaneModeToggle;
+    private ToggleAction mProfileToggle;
 
     private MyAdapter mAdapter;
 
@@ -94,6 +95,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mEnablePowerSaverToggle = false;
     private boolean mEnableScreenshotToggle = false;
     private boolean mEnableAirplaneModeToggle = false;
+    private boolean mEnableProfileToggle = false;
 
     private Profile mChosenProfile;
 
@@ -369,6 +371,9 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mEnableAirplaneModeToggle = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_AIRPLANE_MODE, 0) == 1;       
 
+        mEnableProfileToggle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_PROFILE, 0) == 1;  
+
         mItems = new ArrayList<Action>();
 
         boolean warmBootCapable = SystemProperties.getBoolean("ro.warmboot.capability", false);
@@ -478,21 +483,24 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         };
                 // silent mode
                 mItems.add(mSilentModeToggle);
-                // next: choose profile
-                mItems.add(
-                new ProfileChooseAction() {
-                    public void onPress() {
-                        createProfileDialog();
-                    }
+        // next: choose profile
+        if(mEnableProfileToggle){
+        mItems.add(
+            new ProfileChooseAction() {
+                public void onPress() {
+                    createProfileDialog();
+                }
 
-                    public boolean showDuringKeyguard() {
-                        return false;
-                    }
+                public boolean showDuringKeyguard() {
+                    return false;
+                }
 
-                    public boolean showBeforeProvisioning() {
-                        return false;
-                    }
-                });
+                public boolean showBeforeProvisioning() {
+                    return false;
+                }
+            });
+
+        };
 
         mAdapter = new MyAdapter();
 
