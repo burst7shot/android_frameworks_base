@@ -90,7 +90,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mDeviceProvisioned = false;
     private ToggleAction.State mAirplaneState = ToggleAction.State.Off;
     private boolean mIsWaitingForEcmExit = false;
-    private boolean mEnablePowerSaverToggle = true;
+    private boolean mEnablePowerSaverToggle = false;
     private boolean mEnableScreenshotToggle = false;
 
     private Profile mChosenProfile;
@@ -359,7 +359,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         };
 
         mEnablePowerSaverToggle = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.POWER_DIALOG_SHOW_POWER_SAVER, 1) == 1;
+                Settings.System.POWER_DIALOG_SHOW_POWER_SAVER, 0) == 1;
         
         mEnableScreenshotToggle = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1;       
