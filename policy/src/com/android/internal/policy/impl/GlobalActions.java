@@ -83,6 +83,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private ToggleAction mSilentModeToggle;
     private ToggleAction mAirplaneModeOn;
     private ToggleAction mPowerSaverOn;
+    private ToggleAction mAirplaneModeToggle;
 
     private MyAdapter mAdapter;
 
@@ -92,6 +93,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mIsWaitingForEcmExit = false;
     private boolean mEnablePowerSaverToggle = false;
     private boolean mEnableScreenshotToggle = false;
+    private boolean mEnableAirplaneModeToggle = false;
 
     private Profile mChosenProfile;
 
@@ -364,6 +366,9 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mEnableScreenshotToggle = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_SCREENSHOT, 0) == 1;       
 
+        mEnableAirplaneModeToggle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_DIALOG_SHOW_AIRPLANE_MODE, 0) == 1;       
+
         mItems = new ArrayList<Action>();
 
         boolean warmBootCapable = SystemProperties.getBoolean("ro.warmboot.capability", false);
@@ -431,7 +436,9 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 });
 
         // next: airplane mode
+        if(mEnableAirplaneModeToggle) {  
         mItems.add(mAirplaneModeOn);
+        };
         
         // next: power saver
         try {

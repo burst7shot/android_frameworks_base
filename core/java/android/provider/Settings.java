@@ -3045,6 +3045,13 @@ public final class Settings {
         public static final String POWER_DIALOG_SHOW_POWER_SAVER = "power_dialog_show_power_saver";
 
         /**
+        * Power Menu - Airplane toggle
+        * @hide
+        */
+        public static final String POWER_DIALOG_SHOW_AIRPLANE_MODE = "power_dialog_show_airplane_mode";
+
+
+        /**
         * Notification Power Widget - Mobile Data Auto 2G/3G Toggle
         * @hide
         */
