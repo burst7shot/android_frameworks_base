@@ -91,7 +91,7 @@ public final class CmSystem {
                 case 6:
                     return Honeycomb;
                 default:
-                    return Ring;
+                    return Lense;
             }
         }
 
@@ -112,7 +112,7 @@ public final class CmSystem {
                 case Honeycomb:
                     return 6;
                 default:
-                    return 5;
+                    return 4;
             }
         }
     }
