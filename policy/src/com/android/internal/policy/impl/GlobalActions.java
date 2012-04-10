@@ -404,17 +404,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
         mItems = new ArrayList<Action>();
 
-                    public boolean showBeforeProvisioning() {
-                        return true;
-                    }
-                },
-                // next: reboot
-                new SinglePressAction(com.android.internal.R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
-                    public void onPress() {
-                        ShutdownThread.reboot(getUiContext(), null, (Settings.System.getInt(mContext.getContentResolver(),
-                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1));
-                    }
-
         boolean warmBootCapable = SystemProperties.getBoolean("ro.warmboot.capability", false);
         Log.d(TAG, "Device WarmBoot Capability = " + warmBootCapable );
 
