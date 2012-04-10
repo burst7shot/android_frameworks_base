@@ -171,7 +171,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         filter.addAction(TelephonyIntents.ACTION_EMERGENCY_CALLBACK_MODE_CHANGED);
         context.registerReceiver(mBroadcastReceiver, filter);
 
-       ThemeUtils.registerThemeChangeReceiver(context, mThemeChangeReceiver);
+        ThemeUtils.registerThemeChangeReceiver(context, mThemeChangeReceiver);
 
         // get notified of phone state changes
         TelephonyManager telephonyManager =
@@ -193,8 +193,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mKeyguardShowing = keyguardShowing;
         mDeviceProvisioned = isDeviceProvisioned;
         if (mDialog != null && mUiContext == null) {
-        mDialog.dismiss();
-        mDialog = null;
+            mDialog.dismiss();
+            mDialog = null;
         }
         if (mDialog == null) {
             mStatusBar = (StatusBarManager)mContext.getSystemService(Context.STATUS_BAR_SERVICE);
@@ -210,6 +210,13 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 mUiContext = ThemeUtils.createUiContext(mContext);
             }
             return mUiContext != null ? mUiContext : mContext;
+    }
+
+    private Context getUiContext() {
+        if (mUiContext == null) {
+            mUiContext = ThemeUtils.createUiContext(mContext);
+        }
+        return mUiContext != null ? mUiContext : mContext;
     }
 
     /**
@@ -394,7 +401,19 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mEnableSilentToggle = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_SILENT, 0) == 1;
 
+
         mItems = new ArrayList<Action>();
+
+                    public boolean showBeforeProvisioning() {
+                        return true;
+                    }
+                },
+                // next: reboot
+                new SinglePressAction(com.android.internal.R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
+                    public void onPress() {
+                        ShutdownThread.reboot(getUiContext(), null, (Settings.System.getInt(mContext.getContentResolver(),
+                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1));
+                    }
 
         boolean warmBootCapable = SystemProperties.getBoolean("ro.warmboot.capability", false);
         Log.d(TAG, "Device WarmBoot Capability = " + warmBootCapable );
