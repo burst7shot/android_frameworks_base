@@ -3473,4 +3473,14 @@
     <!-- Lockscreen calendar string -->
     <string name="lockscreen_calendar_tomorrow">Tomorrow</string>
 
+    <!-- Burst Mod-->
+
+    <!-- Button to hot reboot the device, within the Reboot Options dialog -->
+    <string name="reboot_hot">Hot Reboot</string>
+
+    <!-- Hot Reboot Progress Dialog title. Shown if the user chooses to hot reboot the phone. -->
+    <string name="hot_reboot_title" product="default">Hot reboot phone</string>
+
+    <string name="hot_reboot_progress">Restarting android framework\u2026</string>
+
 </resources>
