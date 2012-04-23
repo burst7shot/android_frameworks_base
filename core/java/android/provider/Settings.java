@@ -2668,6 +2668,11 @@ public final class Settings {
         public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
 
         /**
+         * Whether national data Roming should be used.
+         */
+        public static final String MVNO_ROAMING = "mvno_roaming";
+
+        /**
          * Toggle to force multiwaveview lockscreen silent mode toggle even if
          * we have a camera.
          * 
