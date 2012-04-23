@@ -3483,4 +3483,7 @@
 
     <string name="hot_reboot_progress">Restarting android framework\u2026</string>
 
+    <!-- label for item that suspends device in phone options dialog (warmboot feature) -->
+    <string name="global_action_suspend">Suspend Mode</string>
+
 </resources>
