@@ -45,7 +45,7 @@
         <!-- Doubletwist Music App - breaks system-->
         <!-- <item>com.doubleTwist.androidPlayer.metachanged</item> -->
         <!-- Last.fm scrobbler intent -->
-        <item>fm.last.android.metachanged</item>
+        <!-- <item>fm.last.android.metachanged</item> -->
     </string-array>
 
     <!-- playstate changed intents -->
@@ -76,7 +76,7 @@
         <!-- Doubletwist Music App  - breaks system-->
         <!-- <item>com.doubleTwist.androidPlayer.playstatechanged</item> -->
         <!-- Last.fm scrobbler intent -->
-        <item>fm.last.android.playstatechanged</item>
+        <!-- <item>fm.last.android.playstatechanged</item> -->
         <!-- A simple last.fm scrobbler intent -->
         <item>com.adam.aslfms.notify.playstatechanged</item>
         <!-- Scrobble Droid scrobbler intent -->
