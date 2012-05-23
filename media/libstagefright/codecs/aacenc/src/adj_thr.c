@@ -30,7 +30,6 @@
 #include "adj_thr.h"
 #include "qc_data.h"
 #include "line_pe.h"
-#include <string.h>
 
 
 #define  minSnrLimit    0x6666 /* 1 dB */
