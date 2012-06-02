@@ -627,13 +627,13 @@ void AwesomePlayer::notifyListener_l(int msg, int ext1, int ext2) {
 
 bool AwesomePlayer::getBitrate(int64_t *bitrate) {
     off64_t size;
-    if (mDurationUs >= 0 && mCachedSource != NULL
+    if (mDurationUs > 0 && mCachedSource != NULL
             && mCachedSource->getSize(&size) == OK) {
         *bitrate = size * 8000000ll / mDurationUs;  // in bits/sec
         return true;
     }
 
-    if (mBitrate >= 0) {
+    if (mBitrate > 0) {
         *bitrate = mBitrate;
         return true;
     }
@@ -717,7 +717,10 @@ void AwesomePlayer::onBufferingUpdate() {
                 size_t cachedSize = mCachedSource->cachedSize();
                 int64_t cachedDurationUs = cachedSize * 8000000ll / bitrate;
 
-                int percentage = 100.0 * (double)cachedDurationUs / mDurationUs;
+                int percentage = 100.0;
+                if(mDurationUs > 0) {
+                    percentage = 100.0 * (double)cachedDurationUs / mDurationUs;
+                }
                 if (percentage > 100) {
                     percentage = 100;
                 }
@@ -768,7 +771,10 @@ void AwesomePlayer::onBufferingUpdate() {
                 finishAsyncPrepare_l();
             }
         } else {
-            int percentage = 100.0 * (double)cachedDurationUs / mDurationUs;
+            int percentage = 100.0;
+            if(mDurationUs > 0) {
+                percentage = 100.0 * (double)cachedDurationUs / mDurationUs;
+            }
             if (percentage > 100) {
                 percentage = 100;
             }
@@ -1528,7 +1534,7 @@ status_t AwesomePlayer::initAudioDecoder() {
         int64_t durationUs;
         if (mAudioTrack->getFormat()->findInt64(kKeyDuration, &durationUs)) {
             Mutex::Autolock autoLock(mMiscStateLock);
-            if (mDurationUs < 0 || durationUs > mDurationUs) {
+            if (mDurationUs < 0 || (durationUs > mDurationUs)) {
                 mDurationUs = durationUs;
             }
         }
@@ -1633,7 +1639,7 @@ status_t AwesomePlayer::initVideoDecoder(uint32_t flags) {
         int64_t durationUs;
         if (mVideoTrack->getFormat()->findInt64(kKeyDuration, &durationUs)) {
             Mutex::Autolock autoLock(mMiscStateLock);
-            if (mDurationUs < 0 || durationUs > mDurationUs) {
+            if (mDurationUs < 0 || (durationUs > mDurationUs)) {
                 mDurationUs = durationUs;
             }
         }
