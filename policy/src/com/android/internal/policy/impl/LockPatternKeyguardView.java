@@ -191,6 +191,12 @@ public class LockPatternKeyguardView extends KeyguardViewBase {
         }
     };
 
+    private BroadcastReceiver mThemeChangeReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            mUiContext = null;
+        }
+    };
+
     /**
      * @return Whether we are stuck on the lock screen because the sim is
      *   missing.
@@ -553,8 +559,16 @@ public class LockPatternKeyguardView extends KeyguardViewBase {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        ThemeUtils.registerThemeChangeReceiver(mContext, mThemeChangeReceiver);
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         removeCallbacks(mRecreateRunnable);
+        mContext.unregisterReceiver(mThemeChangeReceiver);
+        mUiContext = null;
         super.onDetachedFromWindow();
     }
 
