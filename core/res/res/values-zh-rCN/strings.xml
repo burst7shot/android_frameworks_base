@@ -162,7 +162,7 @@
     <string name="global_actions_toggle_torch">手电</string>
     <string name="global_actions_torch_on_status">已开启手电</string>
     <string name="global_actions_torch_off_status">已关闭手电</string>
-    <string name="global_actions_toggle_navbar_hide">导航栏控制</string>
+    <string name="global_actions_toggle_navbar_hide">虚拟键开关</string>
     <string name="status_bar_notification_info_overflow" msgid="5301981741705354993">"999+"</string>
     <string name="safeMode" msgid="2788228061547930246">"安全模式"</string>
     <string name="android_system_label" msgid="6577375335728551336">"Android 系统"</string>
