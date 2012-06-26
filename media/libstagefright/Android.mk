@@ -82,7 +82,7 @@ LOCAL_SRC_FILES:=                         \
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
         LOCAL_SRC_FILES += ExtendedExtractor.cpp
         LOCAL_SRC_FILES += ExtendedWriter.cpp
-        LOCAL_C_INCLUDES += $(TOP)/hardware/qcom/display/libqcomui
+	LOCAL_C_INCLUDES += $(TOP)/hardware/qcom/display/libqcomui
 endif
 
 ifeq ($(TARGET_USES_QCOM_LPA),true)
@@ -218,7 +218,6 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
         LOCAL_C_INCLUDES += $(TOP)/vendor/qcom/opensource/omx/mm-core/omxcore/inc
         LOCAL_C_INCLUDES += $(TOP)/system/core/include
         LOCAL_C_INCLUDES += $(TOP)/hardware/libhardware_legacy/include
-        LOCAL_C_INCLUDES += $(TOP)/hardware/qcom/display/libqcomui
 endif
 
 LOCAL_MODULE:= libstagefright
