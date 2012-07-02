@@ -240,8 +240,6 @@ Layer* LayerRenderer::createLayer(uint32_t width, uint32_t height, bool isOpaque
             TILERENDERING_CLEARCACHE(fbo);
 #endif
             Caches::getInstance().fboCache.put(fbo);
-            layer->setFbo(0);
-
             layer->deleteTexture();
             delete layer;
 
@@ -332,7 +330,6 @@ void LayerRenderer::destroyLayer(Layer* layer) {
             TILERENDERING_CLEARCACHE(layer->getFbo());
 #endif
             Caches::getInstance().fboCache.put(layer->getFbo());
-            layer->setFbo(0);
         }
 
         if (!Caches::getInstance().layerCache.put(layer)) {
