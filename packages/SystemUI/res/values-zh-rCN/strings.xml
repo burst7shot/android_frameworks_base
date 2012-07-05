@@ -163,4 +163,7 @@
     <string name="toggle_navbar">导航栏开关</string>
     <string name="notifications_off_title">关闭通知</string>
     <string name="notifications_off_text">触摸这里回到通知。</string>
+
+    <!-- for weather last updated mod -->
+    <string name="weather_last_updated">已更新天气信息</string>
 </resources>
