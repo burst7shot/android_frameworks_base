@@ -456,8 +456,9 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mItems.add(
                 new SinglePressAction(com.android.internal.R.drawable.ic_lock_reboot, R.string.global_action_reboot) {
                     public void onPress() {
-                        ShutdownThread.reboot(getUiContext(), null, (Settings.System.getInt(mContext.getContentResolver(),
-                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1));
+                        boolean doPrompt = Settings.System.getInt(mContext.getContentResolver(),
+                                Settings.System.POWER_DIALOG_PROMPT, 1) == 1;
+                        ShutdownThread.reboot(getUiContext(), null, doPrompt, !mKeyguardShowing);
                     }
 
                     public boolean showDuringKeyguard() {
