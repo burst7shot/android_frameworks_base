@@ -792,7 +792,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
         }
     }
 
-    View[] makeNotificationView(final StatusBarNotification notification, ViewGroup parent) {
+    View[] makeNotificationView(final IBinder key, final StatusBarNotification notification, ViewGroup parent) {
         Notification n = notification.notification;
         RemoteViews remoteViews = n.contentView;
         if (remoteViews == null) {
@@ -807,7 +807,12 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
                 public void run() {
                     try {
                         mBarService.onNotificationClear(notification.pkg, notification.tag, notification.id);
-                    } catch (RemoteException e) {
+
+                        int index = mLatest.findEntry(key);
+                        if (index >= 0) {
+                            mLatest.getEntryAt(index).cancelled = true;
+                        }
+                     } catch (RemoteException e) {
                         // Skip it, don't crash.
                     }
                 }
@@ -856,7 +861,7 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
             parent = mLatestItems;
         }
         // Construct the expanded view.
-        final View[] views = makeNotificationView(notification, parent);
+        final View[] views = makeNotificationView(key, notification, parent);
         if (views == null) {
             handleNotificationError(key, notification, "Couldn't expand RemoteViews for: "
                     + notification);
@@ -896,6 +901,10 @@ public class StatusBarService extends Service implements CommandQueue.Callbacks 
         ((ViewGroup)entry.row.getParent()).removeView(entry.row);
         // Remove the icon.
         ((ViewGroup)entry.icon.getParent()).removeView(entry.icon);
+
+        if (entry.cancelled && !mLatest.hasClearableItems()) {
+            animateCollapse();
+        }
 
         return entry.notification;
     }
