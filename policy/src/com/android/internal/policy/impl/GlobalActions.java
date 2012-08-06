@@ -210,14 +210,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 mUiContext = ThemeUtils.createUiContext(mContext);
             }
             return mUiContext != null ? mUiContext : mContext;
-    }
-
-    private Context getUiContext() {
-        if (mUiContext == null) {
-            mUiContext = ThemeUtils.createUiContext(mContext);
         }
-        return mUiContext != null ? mUiContext : mContext;
-    }
 
     /**
      * Create the global actions dialog.
