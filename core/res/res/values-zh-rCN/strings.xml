@@ -136,9 +136,9 @@
     <string name="power_off" msgid="4266614107412865048">"关机"</string>
     <string name="global_action_screenshot">截屏</string>
     <string name="reboot_system">重启</string>
-    <string name="reboot_reboot">重启</string>
-    <string name="reboot_recovery">恢复</string>
-    <string name="reboot_bootloader">引导</string>
+    <string name="reboot_reboot">重新开机</string>
+    <string name="reboot_recovery">刷机模式</string>
+    <string name="reboot_bootloader">引导模式</string>
     <string name="shutdown_progress" msgid="2281079257329981203">"正在关机..."</string>
     <string name="reboot_progress">正在重启...</string>
     <string name="shutdown_confirm" msgid="649792175242821353">"您的手机会关机。"</string>
@@ -974,12 +974,6 @@
     <string name="lockscreen_too_many_failed_fingers_dialog_message">您的指纹识别已失败 %1$d 次。\n\n请在 %2$d 秒内重试。</string>
     <string name="lockscreen_failed_fingers_almost_glogin">您的指纹识别已失败 %1$d 次。如果识别再失败 %2$d 次，系统将要求您使用 Google 登录来解锁您的电话。\n\n请在 %3$d 秒内重试。</string>
     <string name="lockscreen_forgot_finger_button_text">忘记手指?</string>
-
-    <string name="reboot_reboot">重新开机</string>
-    <!-- Button to reboot the phone into recovery, within the Reboot Options dialog -->
-    <string name="reboot_recovery">刷机模式</string>
-    <!-- Button to reboot the phone into bootloader, within the Reboot Options dialog -->
-    <string name="reboot_bootloader">引导模式</string>
 
     <!-- Button to hot reboot the device, within the Reboot Options dialog -->
     <string name="reboot_hot">热重启</string>
