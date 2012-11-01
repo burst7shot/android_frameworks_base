@@ -1247,4 +1247,7 @@
     <string name="reboot_confirm">手機即將重啟。</string>
     <string name="global_action_reboot">重新啟動</string>
     <string name="app_killed_message">應用程式已刪除。</string>
+    <string name="global_actions_toggle_expanded_desktop_mode">全屏模式</string>
+    <string name="global_actions_expanded_desktop_mode_on_status">啟用</string>
+    <string name="global_actions_expanded_desktop_mode_off_status">關閉</string>
 </resources>

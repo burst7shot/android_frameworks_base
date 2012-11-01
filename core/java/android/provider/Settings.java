@@ -2604,6 +2604,11 @@ public final class Settings {
         /**
          * @hide
          */
+        public static final String POWER_DIALOG_SHOW_EXPANDED_DESKTOP_TOGGLE = "power_menu_expanded_desktop";
+
+        /**
+         * @hide
+         */
         public static final String STATUSBAR_CLOCK_LOCKSCREEN_HIDE = "statusbar_clock_lockscreen_hide";
 
         /**
@@ -2891,8 +2896,14 @@ public final class Settings {
          * Last state of the quick toggles, to restore on boot
          * @hide
          */
-
         public static final String STATUSBAR_TOGGLES_VISIBILITY = "statusbar_toggles_visibility";
+
+        /**
+         * Statusbar State
+         * @hide
+         */
+        public static final String EXPANDED_DESKTOP_STATE = "expanded_desktop_state";
+
 		/**
          * 0 = stock
          * 1 = quad

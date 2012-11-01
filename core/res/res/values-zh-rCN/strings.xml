@@ -1259,4 +1259,7 @@
     <string name="global_action_reboot">重启</string>
     <string name="app_killed_message">应用程序已强制关闭</string>
     <string name="lockscreen_calendar_tomorrow">明天</string>
+    <string name="global_actions_toggle_expanded_desktop_mode">全屏模式</string>
+    <string name="global_actions_expanded_desktop_mode_on_status">启用</string>
+    <string name="global_actions_expanded_desktop_mode_off_status">关闭</string>
 </resources>
