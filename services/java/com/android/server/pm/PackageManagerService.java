@@ -187,6 +187,9 @@ public class PackageManagerService extends IPackageManager.Stub {
 
     private static final int THEME_MAMANER_GUID = 1300;
 
+    // MMS_UID must match AID_MMS in system/core/include/private/android_filesystem_config.h
+    private static final int MMS_UID = 1301;
+
     static final int SCAN_MONITOR = 1<<0;
     static final int SCAN_NO_DEX = 1<<1;
     static final int SCAN_FORCE_DEX = 1<<2;
@@ -8838,3 +8841,4 @@ public class PackageManagerService extends IPackageManager.Stub {
         }
     }
 }
+
