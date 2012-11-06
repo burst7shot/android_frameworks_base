@@ -198,6 +198,8 @@ int OpenGLRenderer::prepareDirty(float left, float top, float right, float botto
         return DrawGlInfo::kStatusDrew;
 #ifndef QCOM_HARDWARE
     } else {
+        mCaches.setScissor(left, mSnapshot->height - bottom, right - left, bottom - top);
+        glClear(GL_COLOR_BUFFER_BIT);
         mCaches.resetScissor();
     }
 
