@@ -1737,6 +1737,24 @@ public final class Settings {
         public static final String VOLUME_BLUETOOTH_SCO = "volume_bluetooth_sco";
 
         /**
+         * Whether the phone ringtone should be played in an increasing manner
+         * @hide
+         */
+        public static final String INCREASING_RING = "increasing_ring";
+
+        /**
+         * Minimum volume index for increasing ring volume
+         * @hide
+         */
+        public static final String INCREASING_RING_MIN_VOLUME = "increasing_ring_min_vol";
+
+        /**
+         * Time (in ms) between ringtone volume increases
+         * @hide
+         */
+        public static final String INCREASING_RING_INTERVAL = "increasing_ring_interval";
+
+        /**
          * Whether to prevent loud volume levels when headset is first plugged in.
          * @hide
          */
@@ -3117,6 +3135,24 @@ public final class Settings {
          * @hide
          */
         public static final String CIRCLES_LOCK_WAVE_COLOR = "circles_lock_wave_color";
+
+        /**
+         * Sets ring alpha of alt lockscreen
+         * @hide
+         */
+        public static final String CIRCLES_LOCK_RING_ALPHA = "circles_lock_ring_alpha";
+
+        /**
+         * Sets halo alpha of alt lockscreen
+         * @hide
+         */
+        public static final String CIRCLES_LOCK_HALO_ALPHA = "circles_lock_halo_alpha";
+
+        /**
+         * Sets wave alpha of alt lockscreen
+         * @hide
+         */
+        public static final String CIRCLES_LOCK_WAVE_ALPHA = "circles_lock_wave_alpha";
 
         /**
          * How to show weather on the statusbar
