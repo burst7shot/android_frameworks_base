@@ -2346,6 +2346,12 @@ public final class Settings {
         public static final String POINTER_SPEED = "pointer_speed";
 
         /**
+         * Statusbar background color/alpha chooser
+         * @hide
+         */
+        public static final String STATUSBAR_BACKGROUND_COLOR = "statusbar_background_color";
+
+        /**
          * Style of Battery
          * 0 - Icon Only
          * 1 - Text Only
